@@ -37,9 +37,15 @@ function constructorQuestions(){
    
 
 let answer = document.querySelectorAll('.well');
+answerOnQuestion();
+
+
+function answerOnQuestion(){
 
 answer.forEach(function(item) {
+
     item.addEventListener('click', function(e){
+        console.log('lol');
         let target = e.target;
         if(!nextQuest){
         if(target.id == list[count][2]){  
@@ -58,7 +64,7 @@ answer.forEach(function(item) {
         }
     })
 }) 
-
+}
  nextBtn.addEventListener('click', function(){
     count++;
     counter = 0;
@@ -69,7 +75,9 @@ answer.forEach(function(item) {
 
     constructorQuestions();
     answer = document.querySelectorAll('.well');
-    console.log(answer);
+    answerOnQuestion();
+    nextBtn.style.display = 'none';
+    nextQuest = false;
  });
 
 
