@@ -8,11 +8,13 @@ let list = [
 let ans = document.querySelector('.answer');
     question = document.querySelector('.question');
     nextBtn = document.querySelector('.next');
+    endBtn = document.querySelector('.end');
     count = 0;
     counter = 0;
     nextQuest = true;
     trueAnswer = 0;
     nextBtn.style.display = 'none';
+    endBtn.style.display = 'none';
 
 constructorQuestions();
 
@@ -56,9 +58,13 @@ answer.forEach(function(item) {
             target.style.background = '#ff0000';
             console.log(target);  
         }
-    
+    if(count == list.length-1){
+        endBtn.style.display = '';
+    } else {
+        nextBtn.style.display = '';
+    }
      nextQuest = true;
-     nextBtn.style.display = '';
+     
        
 
         }
@@ -79,6 +85,20 @@ answer.forEach(function(item) {
     nextBtn.style.display = 'none';
     nextQuest = false;
  });
+
+ endBtn.addEventListener('click', function(){
+    answer.forEach(function(item) {
+        ans.removeChild(item);
+    })
+    document.body.removeChild(question);
+
+     div = document.createElement('div');
+    div.classList.add('well');
+    div.id = counter;
+    div.innerHTML = "Вы ответили правильно на " + trueAnswer + " вопросов из " + list.length;
+    ans.appendChild(div);
+    endBtn.style.display = 'none';
+ })
 
 
 
