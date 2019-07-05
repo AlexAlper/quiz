@@ -1,4 +1,17 @@
-.well{
-    margin-right: 40%;
-   
+
+
+.answer{
+    margin-right: 20%;
+    margin-left: 20%;
 }
+
+.progress{
+    margin-top: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.button {
+    margin-left: 50%;
+}
+

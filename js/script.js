@@ -1,7 +1,9 @@
 
 let list = [
     {1: 'Первый человек в космосе?', 2: 4, 3: 'Армстронг', 4: 'Громов', 5: 'Гагарин'},
+    {1: 'Самое быстрое млекопитающее?', 2:3, 3: 'Вилорог', 4: 'Гепард', 5: 'Ягуар'},
     {1: 'Лучший язык программирования?', 2: 2, 3: 'Js', 4: 'С#', 5: 'PHP'}
+    
 ];
 
 
@@ -9,12 +11,17 @@ let ans = document.querySelector('.answer');
     question = document.querySelector('.question');
     nextBtn = document.querySelector('.next');
     endBtn = document.querySelector('.end');
+    parentQuestion = document.getElementById('question');
+    progresbar = document.getElementById('progressbar');
+
+    step = 100/list.length;
     count = 0;
     counter = 0;
     nextQuest = true;
     trueAnswer = 0;
     nextBtn.style.display = 'none';
     endBtn.style.display = 'none';
+
 
 constructorQuestions();
 
@@ -47,7 +54,7 @@ function answerOnQuestion(){
 answer.forEach(function(item) {
 
     item.addEventListener('click', function(e){
-        console.log('lol');
+
         let target = e.target;
         if(!nextQuest){
         if(target.id == list[count][2]){  
@@ -84,20 +91,23 @@ answer.forEach(function(item) {
     answerOnQuestion();
     nextBtn.style.display = 'none';
     nextQuest = false;
+    progresbar.style.width = step*count + "%";
  });
 
  endBtn.addEventListener('click', function(){
     answer.forEach(function(item) {
         ans.removeChild(item);
-    })
-    document.body.removeChild(question);
+    });
 
-     div = document.createElement('div');
+    parentQuestion.removeChild(question);
+
+    div = document.createElement('div');
     div.classList.add('well');
     div.id = counter;
     div.innerHTML = "Вы ответили правильно на " + trueAnswer + " вопросов из " + list.length;
     ans.appendChild(div);
     endBtn.style.display = 'none';
+    progresbar.style.width = step*(count+1) + "%";
  })
 
 
