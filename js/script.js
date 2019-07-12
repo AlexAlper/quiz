@@ -7,25 +7,37 @@ let list = [
 ];
 
 
+
 let ans = document.querySelector('.answer');
     question = document.querySelector('.question');
     nextBtn = document.querySelector('.next');
     endBtn = document.querySelector('.end');
     parentQuestion = document.getElementById('question');
     progresbar = document.getElementById('progressbar');
+    startBlock = document.querySelector('.start-quiz');
+    startBtn = document.querySelector('.start-btn');
 
     step = 100/list.length;
     count = 0;
     counter = 0;
-    nextQuest = true;
+    nextQuest = false;
     trueAnswer = 0;
     nextBtn.style.display = 'none';
     endBtn.style.display = 'none';
+    checkbox = false;
 
 
-constructorQuestions();
+startBtn.addEventListener('click', function(){
+    document.body.removeChild(startBlock);
+    constructorQuestions();
+   
+    answer = document.querySelectorAll('.well');
+    answerOnQuestion();
+
+});
 
 function constructorQuestions(){
+    //document.body.style.background = 'url(img/' + count + '.jpg)';
     for (var key in list[count]) {
 
         if(counter == 0){
@@ -54,7 +66,7 @@ function answerOnQuestion(){
 answer.forEach(function(item) {
 
     item.addEventListener('click', function(e){
-
+        console.log('lol');
         let target = e.target;
         if(!nextQuest){
         if(target.id == list[count][2]){  
@@ -109,6 +121,8 @@ answer.forEach(function(item) {
     endBtn.style.display = 'none';
     progresbar.style.width = step*(count+1) + "%";
  })
+
+ 
 
 
 
