@@ -16,6 +16,7 @@ let ans = document.querySelector('.answer');
     progresbar = document.getElementById('progressbar');
     startBlock = document.querySelector('.start-quiz');
     startBtn = document.querySelector('.start-btn');
+    checkbox = document.querySelector('.form-check-input');
 
     step = 100/list.length;
     count = 0;
@@ -24,10 +25,12 @@ let ans = document.querySelector('.answer');
     trueAnswer = 0;
     nextBtn.style.display = 'none';
     endBtn.style.display = 'none';
-    checkbox = false;
+    checkboxValue = false;
+    
 
 
 startBtn.addEventListener('click', function(){
+    checkboxValue = checkbox.checked;
     document.body.removeChild(startBlock);
     constructorQuestions();
    
@@ -66,9 +69,10 @@ function answerOnQuestion(){
 answer.forEach(function(item) {
 
     item.addEventListener('click', function(e){
-        console.log('lol');
         let target = e.target;
+        console.log(checkboxValue);
         if(!nextQuest){
+            if(checkboxValue){
         if(target.id == list[count][2]){  
             target.style.background = '#008000';
             console.log(target);
@@ -83,12 +87,25 @@ answer.forEach(function(item) {
         nextBtn.style.display = '';
     }
      nextQuest = true;
-     
-       
 
+        } else {
+            if(target.id == list[count][2]){  
+                target.style.background = '#0000ff';
+                console.log(target);
+                trueAnswer++;
+            } else {
+                target.style.background = '#0000ff';
+                console.log(target);  
+            }
+        if(count == list.length-1){
+            endBtn.style.display = '';
+        } else {
+            nextBtn.style.display = '';
         }
-    })
-}) 
+         nextQuest = true;
+        }}
+    });
+});
 }
  nextBtn.addEventListener('click', function(){
     count++;
