@@ -1,8 +1,9 @@
 
 let list = [
-    {1: 'Первый человек в космосе?', 2: 4, 3: 'Армстронг', 4: 'Громов', 5: 'Гагарин'},
-    {1: 'Самое быстрое млекопитающее?', 2:3, 3: 'Вилорог', 4: 'Гепард', 5: 'Ягуар'},
-    {1: 'Лучший язык программирования?', 2: 2, 3: 'Js', 4: 'С#', 5: 'PHP'}
+    {1: 'Первый человек в космосе?', 2: 5,  3: 'Армстронг', 4: 'Громов', 5: 'Гагарин'},
+    {1: 'Самое быстрое млекопитающее?', 2:4, 3: 'Вилорог', 4: 'Гепард', 5: 'Ягуар'},
+    {1: 'Лучший язык программирования?', 2: 3, 3: 'Js', 4: 'С#', 5: 'PHP'},
+    {1: 'Четные числа', 2: 34, 3: '2', 4:'6', 5:'7', 6:'9' }
     
 ];
 
@@ -17,6 +18,10 @@ let ans = document.querySelector('.answer');
     startBlock = document.querySelector('.start-quiz');
     startBtn = document.querySelector('.start-btn');
     checkbox = document.querySelector('.form-check-input');
+    countAnswer = 0;
+    tmpTrueAnswer = 0;
+    arr = [];
+    touchElem = 0;
 
     step = 100/list.length;
     count = 0;
@@ -57,6 +62,8 @@ function constructorQuestions(){
         counter++;
       }
       nextQuest = false;
+      countAnswer = list[count][2].toString().length;
+       arr = list[count][2].toString().split('');
 }
    
 
@@ -70,39 +77,67 @@ answer.forEach(function(item) {
 
     item.addEventListener('click', function(e){
         let target = e.target;
-        console.log(checkboxValue);
-        if(!nextQuest){
+        console.log(touchElem + ' ' + target.id);
+        if(!nextQuest && touchElem != target.id){
             if(checkboxValue){
-        if(target.id == list[count][2]){  
-            target.style.background = '#008000';
-            console.log(target);
-            trueAnswer++;
-        } else {
-            target.style.background = '#ff0000';
-            console.log(target);  
-        }
-    if(count == list.length-1){
-        endBtn.style.display = '';
-    } else {
-        nextBtn.style.display = '';
-    }
-     nextQuest = true;
-
-        } else {
-            if(target.id == list[count][2]){  
-                target.style.background = '#0000ff';
-                console.log(target);
-                trueAnswer++;
+        for(let elem = 0; elem < arr.length; elem++){
+            if(target.id == arr[elem]-1){ 
+                target.style.background = '#008000';
+                tmpTrueAnswer++;
+                touchElem = arr[elem]-1;
+                break;
             } else {
-                target.style.background = '#0000ff';
+                target.style.background = '#ff0000';
                 console.log(target);  
             }
+        }
+       
+        //console.log(countAnswer);
+        countAnswer--;
+    if(countAnswer == 0){
+        nextQuest = true;
+        touchElem = 0;
+        if(tmpTrueAnswer == list[count][2].toString().length){
+            trueAnswer++;
+            tmpTrueAnswer = 0;
+        }
         if(count == list.length-1){
             endBtn.style.display = '';
         } else {
             nextBtn.style.display = '';
         }
-         nextQuest = true;
+    }
+
+        } else {
+            
+        for(let elem = 0; elem < arr.length; elem++){
+            if(target.id == arr[elem]-1){ 
+                target.style.background = '#0000ff';
+                tmpTrueAnswer++;
+                touchElem = arr[elem]-1;
+                break;
+            } else {
+                target.style.background = '#0000ff';
+                console.log(target);  
+            }
+        }
+       
+        //console.log(countAnswer);
+        countAnswer--;
+    if(countAnswer == 0){
+        nextQuest = true;
+        touchElem = 0;
+        if(tmpTrueAnswer == list[count][2].toString().length){
+            trueAnswer++;
+            tmpTrueAnswer = 0;
+        }
+        if(count == list.length-1){
+            endBtn.style.display = '';
+        } else {
+            nextBtn.style.display = '';
+        }
+    }
+         
         }}
     });
 });
