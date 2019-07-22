@@ -42,7 +42,9 @@ let ans = document.querySelector('.answer');                    //блок от�
 
 startBtn.addEventListener('click', function(){
     checkboxValue = checkbox.checked;
-    document.body.removeChild(startBlock);
+    let bd = document.querySelector('.blockMain');  
+    bd.removeChild(startBlock);
+    //document.body.removeChild(startBlock);
     constructorQuestions();
    
     answer = document.querySelectorAll('.well');
